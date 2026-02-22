@@ -116,6 +116,7 @@ export default function DebrisZero() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
+  const [formStatus, setFormStatus] = useState("idle"); // idle, sending, sent, error
 
   useEffect(() => {
     const onScroll = () => {
@@ -784,16 +785,66 @@ export default function DebrisZero() {
           </div>
         </FadeIn>
         <FadeIn delay={0.15}>
-          <div style={{ display: "grid", gap: 16 }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              <input className="input-field" placeholder="First Name" />
-              <input className="input-field" placeholder="Last Name" />
+          {formStatus === "sent" ? (
+            <div style={{
+              textAlign: "center", padding: "48px 24px",
+              borderRadius: 16, background: "rgba(0,212,255,0.06)",
+              border: "1px solid rgba(0,212,255,0.15)",
+            }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>✓</div>
+              <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Message Sent!</h3>
+              <p style={{ color: "rgba(224,230,240,0.6)", fontWeight: 300 }}>Thanks for reaching out. We'll get back to you soon.</p>
+              <button
+                className="cta-btn-outline"
+                style={{ marginTop: 24 }}
+                onClick={() => setFormStatus("idle")}
+              >Send Another</button>
             </div>
-            <input className="input-field" placeholder="Email Address" type="email" />
-            <input className="input-field" placeholder="Subject" />
-            <textarea className="input-field" placeholder="Your Message" rows={5} style={{ resize: "vertical" }} />
-            <button className="cta-btn" style={{ width: "100%", marginTop: 8 }}>Send Message</button>
-          </div>
+          ) : (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setFormStatus("sending");
+                try {
+                  const res = await fetch("https://formspree.io/f/mqedyydz", {
+                    method: "POST",
+                    body: new FormData(e.target),
+                    headers: { Accept: "application/json" },
+                  });
+                  if (res.ok) {
+                    setFormStatus("sent");
+                    e.target.reset();
+                  } else {
+                    setFormStatus("error");
+                  }
+                } catch {
+                  setFormStatus("error");
+                }
+              }}
+              style={{ display: "grid", gap: 16 }}
+            >
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <input className="input-field" name="firstName" placeholder="First Name" required />
+                <input className="input-field" name="lastName" placeholder="Last Name" required />
+              </div>
+              <input className="input-field" name="email" placeholder="Email Address" type="email" required />
+              <input className="input-field" name="subject" placeholder="Subject" required />
+              <textarea className="input-field" name="message" placeholder="Your Message" rows={5} style={{ resize: "vertical" }} required />
+              {formStatus === "error" && (
+                <p style={{ color: "#ff6b6b", fontSize: 14, textAlign: "center" }}>
+                  Something went wrong. Please try again or email us directly.
+                </p>
+              )}
+              <button
+                className="cta-btn"
+                type="submit"
+                disabled={formStatus === "sending"}
+                style={{ width: "100%", marginTop: 8, opacity: formStatus === "sending" ? 0.6 : 1 }}
+              >
+                {formStatus === "sending" ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          )}
         </FadeIn>
         <FadeIn delay={0.25}>
           <div style={{ textAlign: "center", marginTop: 40 }}>
