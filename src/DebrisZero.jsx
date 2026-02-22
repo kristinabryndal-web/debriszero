@@ -847,12 +847,20 @@ export default function DebrisZero() {
           )}
         </FadeIn>
         <FadeIn delay={0.25}>
-          <div style={{ textAlign: "center", marginTop: 40 }}>
+          <div style={{ textAlign: "center", marginTop: 40, display: "flex", alignItems: "center", justifyContent: "center", gap: 24 }}>
             <a href="mailto:info@debriszero.org" style={{
               color: "#00d4ff", textDecoration: "none", fontSize: 16, fontWeight: 500,
               letterSpacing: 0.5,
             }}>
               info@debriszero.org
+            </a>
+            <a href="https://x.com/debris_zero" target="_blank" rel="noopener noreferrer" style={{
+              color: "rgba(224,230,240,0.5)", transition: "color 0.3s", display: "flex", alignItems: "center",
+            }}
+              onMouseEnter={e => e.currentTarget.style.color = "#00d4ff"}
+              onMouseLeave={e => e.currentTarget.style.color = "rgba(224,230,240,0.5)"}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
           </div>
         </FadeIn>
@@ -878,6 +886,14 @@ export default function DebrisZero() {
             }}>DZ</div>
             <span style={{ fontWeight: 600, fontSize: 14, color: "rgba(224,230,240,0.5)" }}>DEBRIS ZERO FOUNDATION</span>
           </div>
+          <a href="https://x.com/debris_zero" target="_blank" rel="noopener noreferrer" style={{
+            color: "rgba(224,230,240,0.3)", transition: "color 0.3s", display: "flex", alignItems: "center",
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = "#00d4ff"}
+            onMouseLeave={e => e.currentTarget.style.color = "rgba(224,230,240,0.3)"}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
           <p style={{
             fontSize: 13, color: "rgba(224,230,240,0.3)",
             fontFamily: "'Space Mono', monospace",
