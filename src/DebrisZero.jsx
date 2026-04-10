@@ -763,7 +763,7 @@ export default function DebrisZero() {
                 "Reducing Space Junk: A Necessity for Our Future" — a comprehensive analysis of the orbital debris crisis, current efforts, and the three-pillar solution framework for sustainable space operations.
               </p>
             </div>
-            <a href="/Space_Debris_White_Paper.docx" className="cta-btn-outline" target="_blank" rel="noopener noreferrer">
+            <a href="/Space_Debris_White_Paper.pdf" className="cta-btn-outline" target="_blank" rel="noopener noreferrer">
               Download PDF ↓
             </a>
           </div>
